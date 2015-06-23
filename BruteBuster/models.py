@@ -17,7 +17,7 @@ via the admin).
 from django.db import models
 from datetime import datetime, timedelta
 from django.conf import settings
-from django.utils.timezone import utc
+from django.utils import timezone
 
 # default values that can be overriden in settings.py
 BB_MAX_FAILURES = int(getattr(settings, 'BB_MAX_FAILURES', 5))
