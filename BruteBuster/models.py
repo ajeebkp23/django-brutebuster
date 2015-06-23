@@ -30,6 +30,10 @@ class FailedAttempt (models.Model):
     failures = models.PositiveIntegerField('Failures', default=0)
     timestamp = models.DateTimeField('Last failed attempt', auto_now=True)
 
+    def save(self, *args, **kwargs):
+        self.timestamp = timezone.now()
+        super(FailedAttempt, self).save(*args, **kwargs)
+
     def too_many_failures(self):
         """Check if the minumum number of failures needed for a block
         is reached"""
