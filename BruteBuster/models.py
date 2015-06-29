@@ -39,14 +39,10 @@ class FailedAttempt (models.Model):
         is reached"""
         return self.failures >= BB_MAX_FAILURES
 
-    def recent_failure(self):
+    def recent_failure (self):
         """Checks if the timestamp one the FailedAttempt object is
                 recent enough to result in an increase in failures"""
-        if settings.USE_TZ:
-            now = datetime.utcnow().replace(tzinfo=utc)
-        else:
-            now = datetime.now()
-        return now < self.timestamp + timedelta(minutes=BB_BLOCK_INTERVAL)
+        return datetime.now() < self.timestamp + timedelta(minutes=BB_BLOCK_INTERVAL)
 
     def blocked(self):
         """Shortcut function for checking both too_many_failures and recent_failure """
