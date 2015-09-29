@@ -1,5 +1,5 @@
 Metadata-Version: 1.0
-Name: django-brutebuster
+Name: git+https://github.com/ajeebkp23/django-brutebuster
 Version: 0.1.8
 Summary: Pluggable Django application providing password bruteforce protection
 Home-page: http://code.google.com/p/django-brutebuster/
