@@ -18,6 +18,7 @@ from django.db import models
 from datetime import datetime, timedelta
 from django.conf import settings
 from django.utils.timezone import utc
+from django.utils import timezone
 
 # default values that can be overriden in settings.py
 BB_MAX_FAILURES = int(getattr(settings, 'BB_MAX_FAILURES', 5))
@@ -38,11 +39,7 @@ class FailedAttempt (models.Model):
     def recent_failure(self):
         """Checks if the timestamp one the FailedAttempt object is
                 recent enough to result in an increase in failures"""
-        if settings.USE_TZ:
-            now = datetime.utcnow().replace(tzinfo=utc)
-        else:
-            now = datetime.now()
-        return now < self.timestamp + timedelta(minutes=BB_BLOCK_INTERVAL)
+        return timezone.now() < self.timestamp + timedelta(minutes=BB_BLOCK_INTERVAL)
 
     def blocked(self):
         """Shortcut function for checking both too_many_failures and recent_failure """
